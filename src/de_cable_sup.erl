@@ -33,18 +33,18 @@ init([channel_sup]) ->
 
 init([]) ->
   Children = [
-  	{
-  		channel_sup, 
-  		{
-			supervisor,
-			start_link,
-			[{local, channel_sup}, ?MODULE, [channel_sup]]
-		},
-		permanent,
-		infinity,
-		supervisor,
-		[]
-	},
+    {
+      channel_sup, 
+      {
+      supervisor,
+      start_link,
+      [{local, channel_sup}, ?MODULE, [channel_sup]]
+    },
+    permanent,
+    infinity,
+    supervisor,
+    []
+  },
     ?CHILD(de_cable_server, worker)
   ],
   {ok, { {one_for_one, 5, 10}, Children} }.
