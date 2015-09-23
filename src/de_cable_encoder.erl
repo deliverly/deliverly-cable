@@ -6,24 +6,24 @@
 ]).
 
 encode(_, #de_cable_message{channel = Channel, data = Message}) ->
-  Indentifier = jsx:encode([{<<"channel">>, Channel}]),
-    {text, jsx:encode([{<<"indentifier">>, Indentifier}, {<<"message">>, Message}])}.
+  Identifier = jsx:encode([{<<"channel">>, Channel}]),
+    {text, jsx:encode([{<<"identifier">>, Identifier}, {<<"message">>, Message}])}.
 
 decode(_, {text, Data}) ->
   Message = 
     case jsx:decode(Data, [return_maps]) of 
-      #{<<"indentifier">> := Indentifier} = M ->
-        M#{<<"indentifier">> => jsx:decode(Indentifier, [return_maps])};
+      #{<<"identifier">> := Identifier} = M ->
+        M#{<<"identifier">> => jsx:decode(Identifier, [return_maps])};
       M ->
         M
     end,
   CableMessage = 
     case Message of
-      #{<<"command">> := <<"subscribe">>, <<"indentifier">> := #{<<"channel">> := Channel}} ->
+      #{<<"command">> := <<"subscribe">>, <<"identifier">> := #{<<"channel">> := Channel}} ->
         #de_cable_message{command = subscribe, channel = Channel};
-      #{<<"command">> := <<"unsubscribe">>, <<"indentifier">> := #{<<"channel">> := Channel}} ->
+      #{<<"command">> := <<"unsubscribe">>, <<"identifier">> := #{<<"channel">> := Channel}} ->
         #de_cable_message{command = unsubscribe, channel = Channel};
-      #{<<"command">> := <<"message">>, <<"indentifier">> := #{<<"channel">> := Channel}} ->
+      #{<<"command">> := <<"message">>, <<"identifier">> := #{<<"channel">> := Channel}} ->
         #de_cable_message{command = message, channel = Channel};
       _ ->
         #de_cable_message{}
