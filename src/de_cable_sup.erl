@@ -36,15 +36,16 @@ init([]) ->
     {
       channel_sup, 
       {
+        supervisor,
+        start_link,
+        [{local, channel_sup}, ?MODULE, [channel_sup]]
+      },
+      permanent,
+      infinity,
       supervisor,
-      start_link,
-      [{local, channel_sup}, ?MODULE, [channel_sup]]
+      []
     },
-    permanent,
-    infinity,
-    supervisor,
-    []
-  },
-    ?CHILD(de_cable_server, worker)
+    ?CHILD(de_cable_server, worker),
+    ?CHILD(de_cable_ping, worker)
   ],
   {ok, { {one_for_one, 5, 10}, Children} }.
