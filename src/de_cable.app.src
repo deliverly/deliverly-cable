@@ -1,0 +1,15 @@
+{application, de_cable,
+ [
+  {description, ""},
+  {vsn, git},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  lager,
+                  ulitos,
+                  deliverly
+                 ]},
+  {mod, { de_cable_app, []}},
+  {env, []}
+ ]}.
