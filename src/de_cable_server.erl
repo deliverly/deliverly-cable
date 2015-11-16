@@ -22,7 +22,7 @@ start_link() ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 init([]) ->
-  ?D(<<"Starting application: de_cable">>),
+  ?I("Starting application: de_cable"),
   {ok, #state{}}.
 
 authorize(Client, Data) ->
@@ -32,7 +32,7 @@ authorize(Client, Data) ->
       false -> <<"">>
     end,
   case deliverly_utils:auth_from_config(cable, Client, NewData) of
-    true -> {ok, Client#de_client{data = #{token => NewData, channels => []}, encoder = cable_encoder}};
+    true -> {ok, Client#de_client{data = #{token => NewData, channels => []}, encoder = de_cable_encoder}};
     false -> {error, 3401}
   end.
 

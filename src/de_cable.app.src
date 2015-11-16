@@ -5,7 +5,10 @@
   {registered, []},
   {applications, [
                   kernel,
-                  stdlib
+                  stdlib,
+                  lager,
+                  ulitos,
+                  deliverly
                  ]},
   {mod, { de_cable_app, []}},
   {env, []}

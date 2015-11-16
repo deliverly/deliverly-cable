@@ -48,4 +48,3 @@ init([]) ->
     ?CHILD(de_cable_server, worker)
   ],
   {ok, { {one_for_one, 5, 10}, Children} }.
-
